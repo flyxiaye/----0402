@@ -1,0 +1,35 @@
+#ifndef __MAX31865_H
+#define __MAX31865_H
+#include "stm32f4xx.h"
+
+
+/* MAX31865参考电阻 */
+#define RREF  430  //430Ω参考电阻
+
+/* MAX31865控制口 */
+#define MAX31865_CONTROL_PORT   GPIOF         // GPIO
+#define MAX31865_CONTROL_PORT2   GPIOG         // GPIO
+
+#define MAX31865_CS     				GPIO_Pin_14    // CS片选
+#define MAX31865_SCLK  					GPIO_Pin_15    // SCLK时钟
+#define MAX31865_SDO    				GPIO_Pin_0    // SDO数据输入（读操作）
+#define MAX31865_SDI    				GPIO_Pin_1    // SDI数据输出（写操作）
+
+#define MAX31865_DRDY 					GPIO_Pin_0    // DRDY转换状态（未用）
+
+#define MAX31865_CS_SET      GPIO_WriteBit(MAX31865_CONTROL_PORT,MAX31865_CS,Bit_SET)
+#define MAX31865_CS_CLR      GPIO_WriteBit(MAX31865_CONTROL_PORT,MAX31865_CS,Bit_RESET)
+#define MAX31865_SCLK_SET    GPIO_WriteBit(MAX31865_CONTROL_PORT,MAX31865_SCLK,Bit_SET)
+#define MAX31865_SCLK_CLR    GPIO_WriteBit(MAX31865_CONTROL_PORT,MAX31865_SCLK,Bit_RESET)
+#define MAX31865_SDI_SET     GPIO_WriteBit(MAX31865_CONTROL_PORT2,MAX31865_SDI,Bit_SET)
+#define MAX31865_SDI_CLR     GPIO_WriteBit(MAX31865_CONTROL_PORT2,MAX31865_SDI,Bit_RESET)
+
+#define MAX31865_SDO_READ    GPIO_ReadInputDataBit(MAX31865_CONTROL_PORT2,MAX31865_SDO)
+#define MAX31865_DRDY_READ   GPIO_ReadInputDataBit(MAX31865_CONTROL_PORT2,MAX31865_DRDY)
+
+void MAX31865_Init(void);
+void MAX31865_Cfg(void);
+float MAX31865_GetTemp(void);
+
+#endif
+
